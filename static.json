@@ -1,0 +1,8 @@
+{
+  "root": "build/",
+  "proxies": {
+    "/api/": {
+      "origin": "https://serene-retreat-91887.herokuapp.com"
+    }
+  }
+}

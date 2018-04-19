@@ -46,7 +46,7 @@ class ModalFormButton extends React.Component {
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.visible}
           onCancel={this.handleCancel}
-          onCreate={this.handleCreate}
+          onCreate={this.props.handleCreate}
         />
       </div>
     );

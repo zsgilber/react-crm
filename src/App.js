@@ -28,6 +28,26 @@ class App extends Component {
     leads: []
   };
 
+  handleCreate = () => {
+    const form = this.formRef.props.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log('Received values of form: ', values);
+      axios.post('/api/lead', values)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      form.resetFields();
+      this.setState({ visible: false });
+    });
+  }
+
   componentDidMount() {
    axios
      .get("/api/leads")
@@ -85,7 +105,7 @@ class App extends Component {
             <Content style={{ padding: '0 24px', minHeight:525}}>
             <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>
                     <Row type="flex" justify="end">
-                    <ModalFormButton buttonText="Add New Lead" title="Title" />
+                    <ModalFormButton buttonText="Create New Lead" title="Title" handleCreate={this.handleCreate} />
                     </Row>
                     <Row>
                     <Col span={24}><LeadsTable dataSource={this.state.leads} columns={columns} /></Col>

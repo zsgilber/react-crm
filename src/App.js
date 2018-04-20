@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import update from 'immutability-helper';
 import ModalFormButton from "./components/ModalFormButton";
 import logo from './logo.svg';
 import './App.css';
@@ -28,29 +29,21 @@ class App extends Component {
     leads: []
   };
 
-  handleCreate = () => {
-    const form = this.formRef.props.form;
-    form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
+  handleChildFunc (newLead) {
+    newLead.then((respData) => {
+     const newLeads = update(this.state.leads, {$push: respData});
+     console.log(newLeads);
+     const newState = Object.assign({}, this.state, {
+       leads: newLeads
+     });
+     this.setState(newState);
+ })
 
-      console.log('Received values of form: ', values);
-      axios.post('/api/lead', values)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      form.resetFields();
-      this.setState({ visible: false });
-    });
   }
 
   componentDidMount() {
    axios
-     .get("/api/leads")
+     .get("/leads")
      .then(response => {
 
        const newLeads = response.data;
@@ -62,6 +55,7 @@ class App extends Component {
        });
 
        // store the new state object in the component's state
+       console.log(newState);
        this.setState(newState);
      })
      .catch(error => console.log(error));
@@ -105,10 +99,10 @@ class App extends Component {
             <Content style={{ padding: '0 24px', minHeight:525}}>
             <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>
                     <Row type="flex" justify="end">
-                    <ModalFormButton buttonText="Create New Lead" title="Title" handleCreate={this.handleCreate} />
+                    <ModalFormButton buttonText="Create New Lead" title="Title" myFunc={this.handleChildFunc.bind(this)}/>
                     </Row>
                     <Row>
-                    <Col span={24}><LeadsTable dataSource={this.state.leads} columns={columns} /></Col>
+                    <Col><LeadsTable dataSource={this.state.leads} columns={columns} /></Col>
                     </Row></div>
             </Content>
           </Layout>

@@ -98,9 +98,10 @@ class App extends Component {
             </Sider>
             <Content style={{ padding: '0 24px', minHeight:525}}>
             <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>
-                    <Row type="flex" justify="end">
+                    <Row type="flex" justify="end" style={{ marginBottom: 10 }}>
                     <ModalFormButton buttonText="Create New Lead" title="Title" myFunc={this.handleChildFunc.bind(this)}/>
                     </Row>
+
                     <Row>
                     <Col><LeadsTable dataSource={this.state.leads} columns={columns} /></Col>
                     </Row></div>

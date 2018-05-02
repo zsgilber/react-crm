@@ -27,14 +27,14 @@ class ModalFormButton extends React.Component {
       }
 
       console.log('Received values of form: ', values);
-async function go(){
-  try{
-      const response = await axios.post('/lead', values);
-      respData.push(response.data);
-      return respData;
-
-  } catch (e) {
- console.error(e);
+      async function go(){
+        try {
+            const response = await axios.post('/lead', values);
+            respData.push(response.data);
+            return respData;
+      }
+       catch (e) {
+            console.error(e);
 }
   }
       // axios.post('/lead', values)

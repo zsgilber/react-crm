@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Button } from 'antd';
+import axios from "axios";
 
 class LeadsTable extends React.Component {
   state = {
@@ -9,14 +10,28 @@ class LeadsTable extends React.Component {
   start = () => {
     this.setState({ loading: true });
     // ajax request after empty completing
-    setTimeout(() => {
-      console.log(this.state.selectedRowKeys);
-      this.setState({
-        selectedRowKeys: [],
-        loading: false,
-      });
-    }, 1000);
-  }
+      var leadsToDelete = {
+        "idsToDelete": this.state.selectedRowKeys
+      };
+      console.log(leadsToDelete);
+      axios.post('/leads/delete', leadsToDelete)
+      .then(response => {
+    console.log(response);
+    this.setState({
+      selectedRowKeys: [],
+      loading: false,
+    });
+
+  })
+  .catch(error => {
+    console.log(error);
+    window.alert("Failed to delete!"); //improve this alert using Ant design component
+    this.setState({
+      selectedRowKeys: [],
+      loading: false,
+    });
+  });
+    };
   onSelectChange = (selectedRowKeys) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
@@ -37,7 +52,7 @@ class LeadsTable extends React.Component {
             disabled={!hasSelected}
             loading={loading}
           >
-            Reload
+            Delete
           </Button>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}

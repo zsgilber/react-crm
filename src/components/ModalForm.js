@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Form, Input, Radio } from 'antd';
+import { Button, Modal, Form, Input, Radio } from "antd";
 
 const FormItem = Form.Item;
 
@@ -18,17 +18,14 @@ const ModalForm = Form.create()(
         >
           <Form layout="vertical">
             <FormItem label={this.props.item1Title}>
-              {getFieldDecorator('firstname', {
-                rules: [{ required: true, message: 'Field is required!' }],
-              })(
-                <Input />
-              )}
+              {getFieldDecorator("firstname", {
+                rules: [{ required: true, message: "Field is required!" }]
+              })(<Input />)}
             </FormItem>
             <FormItem label={this.props.item2Title}>
-              {getFieldDecorator('lastname', {
-                rules: [{ required: true, message: 'Field is required!' }],
-              })(
-                <Input type="textarea" />)}
+              {getFieldDecorator("lastname", {
+                rules: [{ required: true, message: "Field is required!" }]
+              })(<Input type="textarea" />)}
             </FormItem>
           </Form>
         </Modal>

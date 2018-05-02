@@ -14,7 +14,7 @@ class LeadsTable extends React.Component {
         "idsToDelete": this.state.selectedRowKeys
       };
       console.log(leadsToDelete);
-      axios.post('/leads/delete', leadsToDelete)
+      axios.post('api/leads/delete', leadsToDelete)
       .then(response => {
     console.log(response);
     this.setState({

@@ -9,7 +9,6 @@ class LeadsTable extends React.Component {
   };
   start = () => {
     this.setState({ loading: true });
-    // ajax request after empty completing
       var leadsToDelete = {
         "idsToDelete": this.state.selectedRowKeys
       };

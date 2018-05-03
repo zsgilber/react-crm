@@ -46,7 +46,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get("api/leads")
+      .get("/leads")
       .then(response => {
         const newLeads = response.data;
 

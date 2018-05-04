@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import update from "immutability-helper";
 import ModalFormButton from "./components/ModalFormButton";
 import LeadsContainer from "./components/LeadsContainer";
+import DashboardContainer from "./components/DashboardContainer";
 import LeadsTable from "./components/LeadsTable";
 import logo from "./logo.svg";
 import "./App.css";
@@ -28,13 +29,17 @@ class App extends Component {
             style={{ lineHeight: "64px" }}
           >
             <Menu.Item key="1">
+              <Link to="/">Dashboard</Link>
+            </Menu.Item>
+            <Menu.Item key="2">
               <Link to="/leads">Leads</Link>
             </Menu.Item>
-            <Menu.Item key="2">Contacts</Menu.Item>
-            <Menu.Item key="3">Opportunities</Menu.Item>
+            <Menu.Item key="3">Contacts</Menu.Item>
+            <Menu.Item key="4">Opportunities</Menu.Item>
           </Menu>
         </Header>
         <Content style={{ padding: "0 50px" }}>
+          <Route exact path="/" component={DashboardContainer} />
           <Route path="/leads" component={LeadsContainer} />
         </Content>
         <Footer style={{ textAlign: "center" }}>

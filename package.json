@@ -2,7 +2,7 @@
   "name": "react-crm",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://serene-retreat-91887.herokuapp.com",
+  "proxy": "https://serene-retreat-91887.herokuapp.com/api",
   "dependencies": {
     "antd": "^3.4.1",
     "axios": "^0.18.0",

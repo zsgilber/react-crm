@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import LeadsTable from "./components/LeadsTable";
+import LeadsTable from "./LeadsTable";
 import update from "immutability-helper";
-import ModalFormButton from "./components/ModalFormButton";
-import logo from "./logo.svg";
+import ModalFormButton from "./ModalFormButton";
 import axios from "axios";
 import { Row, Col } from "antd";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";

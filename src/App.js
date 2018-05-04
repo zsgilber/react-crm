@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import update from "immutability-helper";
 import ModalFormButton from "./components/ModalFormButton";
 import logo from "./logo.svg";
@@ -65,6 +66,7 @@ class App extends Component {
 
   render() {
     return (
+    <Router>
       <Layout>
         <Header className="header">
           <div className="logo" />
@@ -74,17 +76,23 @@ class App extends Component {
             defaultSelectedKeys={["1"]}
             style={{ lineHeight: "64px" }}
           >
-            <Menu.Item key="1">Leads</Menu.Item>
+            <Menu.Item key="1">
+              <Link to="/leads">Leads</Link>
+            </Menu.Item>
             <Menu.Item key="2">Contacts</Menu.Item>
             <Menu.Item key="3">Opportunities</Menu.Item>
           </Menu>
         </Header>
         <Content style={{ padding: "0 50px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
+          <Route path="/leads" render={()=><LeadsTable
+            dataSource={this.state.leads}
+            columns={columns}
+          />}/>
+          {/* <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>Leads</Breadcrumb.Item>
-          </Breadcrumb>
-          <Layout style={{ padding: "24px 0", background: "#fff" }}>
+          </Breadcrumb> */}
+          {/* <Layout style={{ padding: "24px 0", background: "#fff" }}>
             <Sider width={200} style={{ background: "#fff" }}>
               <Menu mode="inline" style={{ height: "100%" }}>
                 <SubMenu
@@ -122,7 +130,7 @@ class App extends Component {
                 </Row>
               </div>
             </Content>
-          </Layout>
+          </Layout> */}
         </Content>
         <Footer style={{ textAlign: "center" }}>
           <a href="http://github.com/zsgilber">
@@ -131,6 +139,7 @@ class App extends Component {
           </a>
         </Footer>
       </Layout>
+    </Router>
     );
   }
 }

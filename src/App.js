@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
 import update from "immutability-helper";
 import ModalFormButton from "./components/ModalFormButton";
 import LeadsContainer from "./components/LeadsContainer";
@@ -13,11 +15,13 @@ import { Layout, Menu, Breadcrumb, Icon } from "antd";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
+const store = configureStore();
 
 class App extends Component {
 
   render() {
     return (
+  <Provider store={store}>
     <Router>
       <Layout>
         <Header className="header">
@@ -50,6 +54,7 @@ class App extends Component {
         </Footer>
       </Layout>
     </Router>
+  </Provider>
     );
   }
 }

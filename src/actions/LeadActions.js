@@ -12,5 +12,5 @@ export function loadLeads() {
 }
 
 export function loadLeadsSuccess(leads) {
-  return {type: type.LOAD_LEADS_SUCCESS, leads};
+  return {type: types.LOAD_LEADS_SUCCESS, leads};
 }

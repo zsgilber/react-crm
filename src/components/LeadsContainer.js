@@ -1,13 +1,15 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import LeadsTable from "./LeadsTable";
 import update from "immutability-helper";
 import ModalFormButton from "./ModalFormButton";
 import axios from "axios";
 import { Row, Col } from "antd";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
+import {connect} from 'react-redux';
+import * as leadActions from '../../src/actions/leadActions';
+
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
-
 const columns = [
   {
     title: "Lead ID",
@@ -27,9 +29,6 @@ const columns = [
 ];
 
 class LeadsContainer extends Component {
-  state = {
-    leads: []
-  };
 
   handleChildFunc(newLead) {
     newLead.then(respData => {
@@ -40,25 +39,6 @@ class LeadsContainer extends Component {
       });
       this.setState(newState);
     });
-  }
-
-  componentDidMount() {
-    axios
-      .get("/api/leads")
-      .then(response => {
-        const newLeads = response.data;
-
-        // create a new "State" object without mutating
-        // the original State object.
-        const newState = Object.assign({}, this.state, {
-          leads: newLeads
-        });
-
-        // store the new state object in the component's state
-        console.log(newState);
-        this.setState(newState);
-      })
-      .catch(error => console.log(error));
   }
 
   render() {
@@ -99,7 +79,7 @@ class LeadsContainer extends Component {
                 <Row>
                   <Col>
                     <LeadsTable
-                      dataSource={this.state.leads}
+                      dataSource={this.props.leads}
                       columns={columns}
                     />
                   </Col>
@@ -112,4 +92,14 @@ class LeadsContainer extends Component {
   }
 }
 
-export default LeadsContainer;
+function mapStateToProps(state, ownProps) {
+  return {
+    leads: state.leads
+  };
+}
+
+// LeadsContainer.propTypes = {
+//   leads: PropTypes.array.isRequired
+// };
+
+export default connect(mapStateToProps)(LeadsContainer);

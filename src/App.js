@@ -6,16 +6,20 @@ import update from "immutability-helper";
 import ModalFormButton from "./components/ModalFormButton";
 import LeadsContainer from "./components/LeadsContainer";
 import DashboardContainer from "./components/DashboardContainer";
+import {loadLeads} from './actions/leadActions';
 import LeadsTable from "./components/LeadsTable";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
 import { Row, Col } from "antd";
+import {connect} from 'react-redux';
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 const store = configureStore();
+
+store.dispatch(loadLeads());
 
 class App extends Component {
 

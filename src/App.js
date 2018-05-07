@@ -19,9 +19,11 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const store = configureStore();
 
-store.dispatch(loadLeads());
-
 class App extends Component {
+
+  componentDidMount() {
+    console.log("Root Mounted!");
+  }
 
   render() {
     return (

@@ -1,4 +1,5 @@
 import React, { Component} from "react";
+import {bindActionCreators} from "redux";
 import LeadsTable from "./LeadsTable";
 import update from "immutability-helper";
 import ModalFormButton from "./ModalFormButton";
@@ -6,7 +7,8 @@ import axios from "axios";
 import { Row, Col } from "antd";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 import {connect} from 'react-redux';
-import * as leadActions from '../../src/actions/leadActions';
+import {loadLeads} from '../../src/actions/leadActions';
+
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -28,11 +30,27 @@ const columns = [
   }
 ];
 
+
 class LeadsContainer extends Component {
+
+  compountDidMount () {
+    console.log("Component Mounted");
+  }
+
+  componentWillMount () {
+    console.log("Component Will Mount");
+    this.props.dispatch(loadLeads());
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   this.props.dispatch(loadLeads());
+  //   console.log(this.props.leads);
+  //   console.log(nextProps.leads);
+  //   }
 
   handleChildFunc(newLead) {
     newLead.then(respData => {
-      const newLeads = update(this.state.leads, { $push: respData });
+      const newLeads = update(this.props.leads, { $push: respData });
       console.log(newLeads);
       const newState = Object.assign({}, this.state, {
         leads: newLeads
@@ -97,6 +115,12 @@ function mapStateToProps(state, ownProps) {
     leads: state.leads
   };
 }
+
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({
+//     loadLeads: loadLeads
+//   }, dispatch);
+// }
 
 // LeadsContainer.propTypes = {
 //   leads: PropTypes.array.isRequired
